@@ -16,22 +16,22 @@
 <title>Facebook Lesson 18</title>
 </head>
 
-<body>
+<body ng-app="fbFriendsApp">
 
 <h1>The <strong>facebook</strong> Friend Machine</h1>
 
-<div class="friends">
+<div class="friends" ng-controller="friendController">
 
 
 <form class="form-inline searchForm" role="form">
   <div class="form-group">
 
-  <input class="form-control" placeholder="Search Anything About Your Friends" >
+  <input class="form-control" placeholder="Search Anything About Your Friends" ng-model="searchTerm">
   <!-- The stuff below is For step 5....get rid of the one above if you wish-->
-<!--    
+  
     <input class="form-control" placeholder="Search Your Friends' Name" >
     <input class="form-control" placeholder="Search Your Freinds' Location" > 
- -->
+
     <select class="input-medium">
         <option>Name</option>
         <option># friends</option>
@@ -46,18 +46,18 @@
   </div>
 </form>
 
-  <ul>
-    <li class='friend'>
-       <img class="profile-pic" src='https://fbcdn-profile-a.akamaihd.net/hprofile-ak-prn2/1115774_10053237_1899410393_q.jpg'>
-      <h3>Cali Fornia</h3>
+  <ul >
+    <li class='friend' ng-repeat="friend in friends | filter:searchTerm">
+       <img class="profile-pic" src={{friend.pic_square}}>
+      <h3>{{friend.name}}</h3>
       <div class="location">
-        Location: New Port Beach, California, United States
+        Location: {{friend.current_location.city}}, {{friend.current_location.state}}, {{friend.current_location.country}}
       </div>      
       <div class="status">
-        Status: I hate the snow. I wish I was on the beach right now!!! <span class="hashtag">#ihateprovo</span>
+        {{friend.status.message}} <span class="hashtag">#ihateprovo</span>
       </div>      
       <div class="num-friends">
-        Friends: 1,367
+        Friends: {{friend.friend_count}}
       </div>
     </li>
   </ul>
