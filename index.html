@@ -26,35 +26,35 @@
 <form class="form-inline searchForm" role="form">
   <div class="form-group">
 
-  <input class="form-control" placeholder="Search Anything About Your Friends" ng-model="searchTerm">
+  <!-- <input class="form-control" placeholder="Search Anything About Your Friends" ng-model="searchTerm"> -->
   <!-- The stuff below is For step 5....get rid of the one above if you wish-->
   
-    <input class="form-control" placeholder="Search Your Friends' Name" >
-    <input class="form-control" placeholder="Search Your Freinds' Location" > 
+    <input class="form-control" placeholder="Search Your Friends' Name" ng-model="searchTerm.name">
+    <input class="form-control" placeholder="Search Your Freinds' Location" ng-model="searchTerm.current_location"> 
 
-    <select class="input-medium">
-        <option>Name</option>
-        <option># friends</option>
-        <option>City</option>
-        <option>State</option>
-        <option>Country</option>
+    <select class="input-medium" ng-model="sortBy">
+        <option value="name">Name</option>
+        <option value="friend_count"># friends</option>
+        <option value="current_location.city">City</option>
+        <option value="current_location.state">State</option>
+        <option value="current_location.country">Country</option>
     </select>
-    <select class="input-medium">
-        <option value="false">Descending</option>
-        <option value="true">Ascending</option>
+    <select class="input-medium" ng-model="sortOrder">
+        <option value="true">Descending</option>
+        <option value="false">Ascending</option>
     </select>
   </div>
 </form>
 
   <ul >
-    <li class='friend' ng-repeat="friend in friends | filter:searchTerm">
+    <li class='friend' ng-repeat="friend in friends | filter:searchTerm | orderBy:sortBy:sortOrder">
        <img class="profile-pic" src={{friend.pic_square}}>
       <h3>{{friend.name}}</h3>
       <div class="location">
-        Location: {{friend.current_location.city}}, {{friend.current_location.state}}, {{friend.current_location.country}}
+        Location: {{friend.current_location.city || "Not Specified"}}, {{friend.current_location.state}}, {{friend.current_location.country || "Not Specified"}}
       </div>      
       <div class="status">
-        {{friend.status.message}} <span class="hashtag">#ihateprovo</span>
+        {{friend.status.message}} 
       </div>      
       <div class="num-friends">
         Friends: {{friend.friend_count}}

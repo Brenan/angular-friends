@@ -1,1 +1,1 @@
-var app = angular.module('fbFriendsApp',[]);
+var fbFriendsApp = angular.module('fbFriendsApp',[]);
